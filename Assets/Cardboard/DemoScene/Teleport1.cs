@@ -1,0 +1,81 @@
+// Copyright 2014 Google Inc. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+using UnityEngine;
+using System.Collections;
+
+
+
+[RequireComponent(typeof(Collider))]
+public class Teleport1 : MonoBehaviour {
+  private Vector3 startingPosition;
+
+  void Start() {
+    startingPosition = transform.localPosition;
+    SetGazedAt(false);
+	fillBox ();
+
+  }
+
+  public void SetGazedAt(bool gazedAt) {
+		var shader1 = Shader.Find("InsideVisible");
+		var shader2 = Shader.Find("Diffuse");
+    GetComponent<Renderer>().material.shader = gazedAt ? shader1 : shader2;
+  }
+
+  public void Reset() {
+    transform.localPosition = startingPosition;
+  }
+
+  public void ToggleVRMode() {
+    Cardboard.SDK.VRModeEnabled = !Cardboard.SDK.VRModeEnabled;
+  }
+
+  public void TeleportRandomly() {
+    Vector3 direction = Random.onUnitSphere;
+    direction.y = Mathf.Clamp(direction.y, 0.5f, 1f);
+    float distance = 2 * Random.value + 1.5f;
+    transform.localPosition = direction * distance;
+  }
+	public void TeleportDemo() {
+		Application.LoadLevel ("DemoScene");
+	
+	}
+	public void TeleportScene3() {
+		Application.LoadLevel ("Scene3");
+		
+	}
+
+	public void fillBox() {
+		Color startColor = Color.red;
+		Color endColor = Color.green;
+		float duration = 5;
+		float t = 0; // lerp control variable
+		
+		// Use this for initialization
+		GetComponent<Renderer> ().material.color = Color.Lerp (startColor, endColor, t);
+		if (t < 1) { // while t below the end limit...
+			// increment it at the desired rate every update:
+			t += Time.deltaTime / duration;
+				
+		}
+	}
+
+
+
+		
+		
+
+
+}
