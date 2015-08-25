@@ -55,7 +55,7 @@ public class menuTeleport : MonoBehaviour {
 			//GetComponent<Renderer>().material.color = Color.blue;
 		} else {
 			GetComponent<Renderer>().material.color = Color.clear;
-			ScaleDown();
+			//ScaleDown();
 		}
 		
 		
@@ -119,8 +119,8 @@ public class menuTeleport : MonoBehaviour {
 			yield return null;
 		}
 		GetComponent<Renderer> ().material.color = endColor;
-		StartCoroutine(ScaleObject ());
-		yield return new WaitForSeconds(2);
+		//StartCoroutine(ScaleObject ());
+		//yield return new WaitForSeconds(2);
 		var x = this.gameObject.name;
 		TeleportNow (x);
 
